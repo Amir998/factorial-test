@@ -1,74 +1,19 @@
-<div class="border-b-2">
+<div class="mb-8 border-b-2">
   <h1 class="text-2xl font-semibold text-blue-300 text-center my-2">Welcome to your contact list handler!</h1>
 </div>
 
-<%= form_with model: @contact do |f| %>
-  <div id="formBox" class="w-3/4 mx-auto py-8 grid grid-flow-col grid-cols-4 grid-rows-1 gap-4">
-    <div class="">
-      <%= f.label :first_name, class: "px-1 text-sm text-gray-600 font-bold" %>
-      <%= f.text_field :first_name, class: "p-2 h-10 rounded border" %>
-      <% if @contact.errors[:first_name] %>
-        <div class="h-0">
-          <p class="px-1 text-sm text-red-400"><%= @contact.errors[:first_name].first %></p>
-        </div>
-      <% end %>
+<div>
+  <%= render "contacts/form", contact: Contact.new %>
+</div>
 
-    </div>
-    <div class="">
-      <%= f.label :last_name, class: "px-1 text-sm text-gray-600 font-bold" %>
-      <%= f.text_field :last_name, class: "p-2 h-10 rounded border" %>
-      <% if @contact.errors[:last_name] %>
-        <div class="h-0">
-          <p class="px-1 text-sm text-red-400"><%= @contact.errors[:last_name].first %></p>
-        </div>
-      <% end %>
-    </div>
-    <div class="">
-      <%= f.label :email, class: "px-1 text-sm text-gray-600 font-bold" %>
-      <%= f.email_field :email, class: "block p-2 h-10 rounded border" %>
-      <% if @contact.errors[:email] %>
-        <div class="h-0">
-          <p class="px-1 text-sm text-red-400"><%= @contact.errors[:email].first %></p>
-        </div>
-      <% end %>
-    </div>
-    <div class="">
-      <%= f.label :phone_number, class: "px-1 text-sm text-gray-600 font-bold" %>
-      <%= f.text_field :phone_number, class: "p-2 h-10 rounded border" %>
-      <% if @contact.errors[:phone_number] %>
-        <div class="h-0">
-          <p class="px-1 text-sm text-red-400"><%= @contact.errors[:phone_number].first %></p>
-        </div>
-      <% end %>
-    </div>
-    <div class="mt-6">
-      <%= f.submit "Submit", class: "py-2 px-3 text-white font-semibold bg-blue-600 hover:bg-blue-400 rounded-full cursor-pointer" %>
-    </div>
-  </div>
-<% end %>
-
-<div class="w-4/5 mx-auto border">
+<div class="w-4/5 mx-auto my-12 border">
   <div class="w-3/4 text-center grid grid-flow-col grid-cols-4 grid-rows-1">
     <span class="font-bold text-gray-600">First Name</span>
     <span class="font-bold text-gray-600">Last Name</span>
     <span class="font-bold text-gray-600">Email</span>
     <span class="font-bold text-gray-600">Phone Number</span>
   </div>
-    <% @contacts.each do |contact| %>
-      <div class="flex border-b-2 py-6 mx-2">
-        <div id="contactInfo" class="w-3/4 text-center grid grid-flow-col grid-cols-4 grid-rows-1">
-          <span class="font-semibold text-gray-400 text-center"><%= contact.first_name %></span>
-          <span class="font-semibold text-gray-400"><%= contact.last_name %></span>
-          <span class="font-semibold text-gray-400"><%= contact.email %></span>
-          <span class="font-semibold text-gray-400"><%= contact.phone_number %></span>
-        </div>
-        <div id="actionButtons" class="w-1/4 text-right">
-          <%= link_to "Update", contacts_path(contact), class: "hidden py-2 px-3 text-white font-semibold bg-blue-600 hover:bg-blue-400 rounded-full cursor-pointer" %>
-          <%= link_to "Cancel", contacts_path(contact), class: "hidden py-2 px-3 text-red-600 underline font-semibold cursor-pointer" %>
-          <%= link_to "Edit", contacts_path(contact), class: "py-2 px-3 text-gray-600 underline font-semibold cursor-pointer" %>
-          <%= link_to "Toggle History", contacts_path(contact), class: "py-2 px-3 text-gray-600 underline font-semibold cursor-pointer" %>
-          <%= link_to "Delete", contacts_path(contact), method: :delete, class: "py-2 px-3 text-white font-semibold bg-red-600 hover:bg-red-400 rounded-full cursor-pointer" %>
-        </div>
-      </div>
-    <% end %>
+  <div id="contacts">
+    <%= render @contacts %>
+  </div>
 </div>

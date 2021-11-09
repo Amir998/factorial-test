@@ -1,0 +1,12 @@
+<div class="z-50 relative">
+  <% flash.each do |type, msg| %>
+    <div data-controller="flash" class="absolute h-12 w-1/2 items-center <%= type == "notice" ? "bg-green-500 border-green-900" : "bg-red-500 border-red-900" %> border-2" style="top: 40px; left: 25%;">
+      <button type="button" class="ml-2 mb-1" data-action="flash#dismiss">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="text-center text-white absolute" style="top:25%; left: 25%; right: 25%;">
+        <%= msg %>
+      </div>
+    </div>
+  <% end %>
+</div>
