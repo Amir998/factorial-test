@@ -1,0 +1,20 @@
+<%= form_with model: contact, id: "edit_form_#{contact.id}" do |f| %>
+  <div class="w-3/4 mx-auto py-8 grid grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+    <div>
+      <%= f.text_field :first_name, id:"randomId", class: "p-2 h-10 rounded border" %>
+    </div>
+    <div>
+      <%= f.text_field :last_name, class: "p-2 h-10 rounded border" %>
+    </div>
+    <div>
+      <%= f.email_field :email, class: "block p-2 h-10 rounded border" %>
+    </div>
+    <div>
+      <%= f.text_field :phone_number, class: "p-2 h-10 rounded border" %>
+    </div>
+    <div class="mt-6">
+      <%= f.submit "Update", class: "py-2 px-3 text-white font-semibold bg-blue-600 hover:bg-blue-400 rounded-full cursor-pointer", data: { disable_with: false } %>
+      <%= link_to "Cancel", fix_contact_path(contact), method: :delete, class: "py-2 px-3 text-red-600 underline font-semibold cursor-pointer" %>
+    </div>
+  </div>
+<% end %>

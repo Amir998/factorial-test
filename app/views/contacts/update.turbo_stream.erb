@@ -1,0 +1,2 @@
+<%= turbo_stream.replace "edit_form_#{@contact.id}", partial: "contacts/contact", locals: { contact: @contact } %>
+<%= turbo_stream.append "flash", partial: "layouts/flash" %>

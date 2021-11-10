@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :contacts, only: [:index, :edit, :create, :update, :destroy]
+  resources :contacts, only: [:index, :create, :update, :destroy]
+  resources :fix_contacts, only: [:update, :destroy]
 
   root to: "contacts#index"
 end

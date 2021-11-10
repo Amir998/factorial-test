@@ -1,19 +1,14 @@
 class ContactsController < ApplicationController
+  before_action :set_contact, only: [:edit, :update, :destroy]
+
   def index
     @contact = Contact.new
-    @contacts = Contact.all#orderati ih po abecednom redu
+    @contacts = Contact.all
   end
 
-  def edit#uraditi pomoću turbo-a, kreirati edit template i po potrebi ga renderati
+  def edit
     respond_to do |format|
-      if @contact.save
-        flash[:notice] = "Added a new contact!"
-        format.turbo_stream
-      else
-        flash[:error] = "Failed to add a new contact!"
-        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
-        #format.html { render :index, error: "Failed to add a new contact!" }
-      end
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("contact_#{@contact.id}", partial: "contacts/form", locals: { contact: @contact }) }
     end
   end
 
@@ -27,18 +22,15 @@ class ContactsController < ApplicationController
       else
         flash[:error] = "Failed to add a new contact!"
         format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
-        #format.html { render :index, error: "Failed to add a new contact!" }
       end
     end
   end
 
   def update
-    @contact = Contact.find(params[:id])
-
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { status :ok, notice: "Successfully updated a contact!" }
-        redirect_to root_path
+        flash[:notice] = "Successfully updated contact!"
+        format.turbo_stream
       else
         format.html { render :index, error: "Failed to update a contact!" }
       end
@@ -46,8 +38,6 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    @contact = Contact.find(params[:id])
-
     respond_to do |format|
       if @contact.destroy
         flash[:notice] = "Successfully deleted a contact!"
@@ -59,6 +49,10 @@ class ContactsController < ApplicationController
   end
 
   private
+    def set_contact
+      @contact = Contact.find(params[:id])
+    end
+
     def contact_params
       params.require(:contact).permit(:first_name, :last_name, :email, :phone_number)
     end
