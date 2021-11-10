@@ -32,7 +32,8 @@ class ContactsController < ApplicationController
         flash[:notice] = "Successfully updated contact!"
         format.turbo_stream
       else
-        format.html { render :index, error: "Failed to update a contact!" }
+        flash[:error] = "Failed to update contact!"
+        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
       end
     end
   end
@@ -43,7 +44,8 @@ class ContactsController < ApplicationController
         flash[:notice] = "Successfully deleted a contact!"
         format.turbo_stream
       else
-        format.html { render :index, error: "Failed to delete a contact!" }
+        flash[:error] = "Failed to delete a contact!"
+        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
       end
     end
   end
