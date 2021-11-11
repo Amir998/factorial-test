@@ -1,0 +1,2 @@
+<%= turbo_stream.after("contact_#{@contact.id}", partial: "contacts/history", locals: { contact: @contact }) %>
+<%= turbo_stream.replace "show_button", partial: "layouts/hide_btn" %>

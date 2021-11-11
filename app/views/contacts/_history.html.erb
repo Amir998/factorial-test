@@ -1,0 +1,18 @@
+<div id="contact_history" class="w-3/4 py-2 text-center">
+  <% contact.versions.reverse.each do |version| %>
+    <div class="flex border-b border-gray-400">
+      <div class="w-1/4">
+        <i class="text-gray-400"><%= version.object["first_name"] %></i>
+      </div>
+      <div class="w-1/4">
+        <i class="text-gray-400"><%= version.object["last_name"] %></i>
+      </div>
+      <div class="w-1/4">
+        <i class="text-gray-400"><%= version.object["email"] %></i>
+      </div>
+      <div class="w-1/4">
+        <i class="text-gray-400"><%= version.object["phone_number"] %></i>
+      </div>
+    </div>
+  <% end %>
+</div>

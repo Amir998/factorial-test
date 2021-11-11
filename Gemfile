@@ -24,6 +24,7 @@ gem 'redis', '~> 4.0'
 
 gem 'turbo-rails'
 gem 'hotwire-rails'
+gem 'paper_trail'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
