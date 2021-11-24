@@ -8,7 +8,9 @@ class ContactsController < ApplicationController
 
   def edit
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("contact_#{@contact.id}", partial: "contacts/form", locals: { contact: @contact }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("contact_#{@contact.id}",
+                                                                      partial: "contacts/form",
+                                                                      locals: { contact: @contact }) }
     end
   end
 
@@ -17,11 +19,11 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        flash[:notice] = "Added a new contact!"
         format.turbo_stream
+        flash_handler("notice", "Added a new contact!")
       else
-        flash[:error] = "Failed to add a new contact!"
-        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
+        render_error_flash_message
+        flash_handler("error", "Failed to add a new contact!")
       end
     end
   end
@@ -29,11 +31,11 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        flash[:notice] = "Successfully updated contact!"
         format.turbo_stream
+        flash_handler("notice", "Successfully updated contact!")
       else
-        flash[:error] = "Failed to update contact!"
-        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
+        render_error_flash_message
+        flash_handler("error", "Failed to update contact!")
       end
     end
   end
@@ -41,11 +43,11 @@ class ContactsController < ApplicationController
   def destroy
     respond_to do |format|
       if @contact.destroy
-        flash[:notice] = "Successfully deleted a contact!"
         format.turbo_stream
+        flash_handler("notice", "Successfully deleted a contact!")
       else
-        flash[:error] = "Failed to delete a contact!"
-        format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
+        render_error_flash_message
+        flash_handler("error", "Failed to delete a contact!")
       end
     end
   end
@@ -57,5 +59,14 @@ class ContactsController < ApplicationController
 
     def contact_params
       params.require(:contact).permit(:first_name, :last_name, :email, :phone_number)
+    end
+
+    def render_error_flash_message
+      format.turbo_stream { render turbo_stream: turbo_stream.append(:flash, partial: "layouts/flash") }
+    end
+
+    def flash_handler(type, message)
+      flash[type] = message
+      flash.discard
     end
 end

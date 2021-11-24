@@ -1,18 +1,28 @@
-<div id="contact_history" class="w-3/4 py-2 text-center">
-  <% contact.versions.reverse.each do |version| %>
-    <div class="flex border-b border-gray-400">
-      <div class="w-1/4">
-        <i class="text-gray-400"><%= version.object["first_name"] %></i>
-      </div>
-      <div class="w-1/4">
-        <i class="text-gray-400"><%= version.object["last_name"] %></i>
-      </div>
-      <div class="w-1/4">
-        <i class="text-gray-400"><%= version.object["email"] %></i>
-      </div>
-      <div class="w-1/4">
-        <i class="text-gray-400"><%= version.object["phone_number"] %></i>
+<div id="contact_history_<%= "#{contact.id}" %>" class="w-3/4 py-2 text-center">
+  <% if contact.versions.last.event == "create" %>
+    <div class="border-b border-gray-400">
+      <div class="w-full">
+        <i class="text-gray-400">History is empty!</i>
       </div>
     </div>
+  <% elsif contact.versions.last.event == "update" %>
+    <% contact.versions.reverse.each do |version| %>
+      <% unless version.object.nil? %>
+        <div class="flex border-b border-gray-400">
+          <div class="w-1/4">
+            <i class="text-gray-400"><%= version.object["first_name"] %></i>
+          </div>
+          <div class="w-1/4">
+            <i class="text-gray-400"><%= version.object["last_name"] %></i>
+          </div>
+          <div class="w-1/4">
+            <i class="text-gray-400"><%= version.object["email"] %></i>
+          </div>
+          <div class="w-1/4">
+            <i class="text-gray-400"><%= version.object["phone_number"] %></i>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

@@ -1,14 +1,18 @@
 <%= form_with model: contact, id: "edit_form_#{contact.id}" do |f| %>
-  <div class="flex items-center">
-    <div class="w-4/5 items-center mx-auto h-20 px-4 grid grid-flow-col grid-cols-4 grid-rows-1 gap-4">
-      <%= f.text_field :first_name, class: "p-2 h-10 rounded border" %>
-      <%= f.text_field :last_name, class: "p-2 h-10 rounded border" %>
-      <%= f.email_field :email, class: "p-2 h-10 rounded border" %>
-      <%= f.text_field :phone_number, class: "p-2 h-10 rounded border" %>
-    </div>
-    <div class="w-1/5 text-center">
-      <%= f.submit "Update", class: "py-2 px-3 text-white font-semibold bg-blue-600 hover:bg-blue-400 rounded-full cursor-pointer", data: { disable_with: false } %>
-      <%= link_to "Cancel", fix_contact_path(contact), method: :delete, class: "py-2 px-3 text-gray-600 hover:text-gray-400 underline font-semibold cursor-pointer" %>
+  <div class="block">
+    <div class="flex items-center">
+      <div class="w-4/5 items-center mx-auto h-20 px-4 grid grid-flow-col grid-cols-4 grid-rows-1 gap-4">
+        <%= f.text_field :first_name, class: "p-2 h-10 rounded border" %>
+        <%= f.text_field :last_name, class: "p-2 h-10 rounded border" %>
+        <%= f.email_field :email, class: "p-2 h-10 rounded border" %>
+        <%= f.text_field :phone_number, class: "p-2 h-10 rounded border" %>
+      </div>
+      <div class="w-1/5 text-center">
+        <%= f.submit "Update", class: "py-2 px-3 text-white font-semibold bg-blue-600
+          hover:bg-blue-400 rounded-full cursor-pointer", data: { disable_with: false } %>
+        <%= link_to "Cancel", edit_contact_path(contact), method: :delete, class: "py-2 px-3 text-gray-600 font-semibold
+          hover:text-gray-400 underline cursor-pointer" %>
+      </div>
     </div>
   </div>
 <% end %>
